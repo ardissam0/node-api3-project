@@ -80,17 +80,13 @@ router
       console.log(req);
       if (req.user.name !== req.body.name) {
         res.status(200).json({
-          status: `Users' name ${
+          status: `Name ${
             req.user.name ? req.user.name : req.body.name
           } was changed to ${req.body.name}`,
-          oldName: req.user.name,
-          newName: req.body.name
         });
       } else {
         res.status(200).json({
-          status: `Users' name ${req.user.name} was not changed`,
-          oldName: req.user.name,
-          newName: req.body.name
+          status: `Name ${req.user.name} was not changed`,
         });
       }
     })

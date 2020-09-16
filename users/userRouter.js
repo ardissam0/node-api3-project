@@ -5,6 +5,7 @@ const Posts = require("../posts/postDb");
 
 const router = express.Router();
 
+//add user
 router
 .post('/', validateUser, (req, res) => {
     Users.insert(req.body)
@@ -16,6 +17,8 @@ router
     });
 });
 
+
+// add post
 router
 .post('/:id/posts', validatePost, validateUserId, (req, res) => {
   Posts.insert({ ...req.body, user_id: req.params.id })
@@ -28,6 +31,8 @@ router
     });
 });
 
+
+//retrieve user list
 router
 .get('/', (req, res) => {
   Users.get()
@@ -40,6 +45,9 @@ router
     });
 });
 
+
+//retrieve user by id
+//validate the user id using custom middleware
 router
 .get('/:id', validateUserId, (req, res) => {
   req.user
@@ -49,6 +57,8 @@ router
       });
 });
 
+
+//retrieve post by id
 router
 .get('/:id/posts', (req, res) => {
   Users.getUserPosts(req.params.id)
@@ -61,6 +71,9 @@ router
     });
 });
 
+
+//delete user by id
+//validate user using id custom middleware
 router
 .delete('/:id', validateUserId, (req, res) => {
   Users.remove(req.params.id)
@@ -73,6 +86,9 @@ router
     });
 });
 
+
+//edit user by id
+//validate user id and user using custom middleware
 router
 .put('/:id', validateUserId, validateUser, (req, res) => {
   Users.update(req.params.id, req.body)
